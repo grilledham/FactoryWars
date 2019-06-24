@@ -1,0 +1,13 @@
+{
+  "name": "factory_wars_data",
+  "version": "0.0.1",
+  "title": "Factory Wars Data",
+  "author": "grilledham",
+  "contact": "",
+  "homepage": "",
+  "description": "Data for the factory wars scenario",
+  "dependencies": [
+    "base >= 0.17.50"
+  ],
+  "factorio_version": "0.17"
+}
