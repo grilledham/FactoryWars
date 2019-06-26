@@ -49,7 +49,7 @@ local item = {
     icon = machine.icon,
     icon_size = machine.icon_size,
     flags = {},
-    subgroup = 'basic-units',
+    subgroup = names.subgroups.basic_units,
     order = 'aa' .. name,
     place_result = name,
     stack_size = 50
@@ -94,11 +94,11 @@ local technology = {
         {
             type = 'unlock-recipe',
             recipe = name
-        }
-        --[[  {
+        },
+        {
             type = 'unlock-recipe',
-            recipe = names.units.smg_guy
-        } ]]
+            recipe = names.units.basic_gun_car
+        }
     },
     unit = {
         count = 25,

@@ -1,5 +1,8 @@
-local utils = require 'util'
+local util = require 'util'
+local utils = {}
 utils.deepcopy = util.table.deepcopy
+
+local deepcopy = utils.deepcopy
 
 utils.directions4Way = {'north', 'east', 'south', 'west'}
 local directions4Way = utils.directions4Way
@@ -61,6 +64,7 @@ function utils.multiply_animation_value(animations, key, value)
 
     return animations
 end
+local multiply_animation_value = utils.multiply_animation_value
 
 function utils.scale_area(area, scale)
     local a, b = area[1], area[2]
@@ -77,4 +81,73 @@ function utils.scale_position(position, scale)
     return position
 end
 
-return util
+utils.unit_flags = {'player-creation', 'placeable-off-grid'}
+utils.ground_unit_collision_mask = {'not-colliding-with-itself', 'player-layer', 'train-layer'}
+
+local function is_sprite_def(array)
+    return array.width and array.height and (array.filename or array.stripes or array.filenames)
+end
+utils.is_sprite_def = is_sprite_def
+
+local function recursive_hack_make_hr(prototype)
+    for k, v in pairs(prototype) do
+        if type(v) == 'table' then
+            if is_sprite_def(v) and v.hr_version then
+                prototype[k] = v.hr_version
+                --v.scale = v.scale * 0.5
+                v.hr_version = nil
+            end
+            recursive_hack_make_hr(v)
+        end
+    end
+
+    return prototype
+end
+utils.recursive_hack_make_hr = recursive_hack_make_hr
+
+local function do_layers(animation)
+    for _, layer in pairs(animation.layers) do
+        layer.frame_count = 1
+        layer.max_advance = nil
+        layer.line_length = nil
+        if layer.stripes then
+            for _, strip in pairs(layer.stripes) do
+                strip.width_in_frames = 1
+            end
+            if layer.apply_runtime_tint or layer.draw_as_shadow then
+                local new_stripes = {}
+                for k, stripe in pairs(layer.stripes) do
+                    if k % 2 ~= 0 then
+                        table.insert(new_stripes, stripe)
+                    end
+                end
+                layer.stripes = new_stripes
+            end
+        end
+    end
+end
+
+function utils.combine_base_and_turret(base, turret, turret_scale, turret_shift)
+    turret_shift = turret_shift or {0, 0}
+
+    recursive_hack_make_hr(base)
+    recursive_hack_make_hr(turret)
+
+    if turret_scale then
+        multiply_animation_value(turret, 'scale', turret_scale)
+    end
+
+    do_layers(base)
+
+    local base_layers = base.layers
+    for _, l in pairs(turret.layers) do
+        l.shift = l.shift or {0, 0}
+        l.shift[1] = l.shift[1] + turret_shift[1]
+        l.shift[2] = l.shift[2] + turret_shift[2]
+        table.insert(base_layers, l)
+    end
+
+    return base
+end
+
+return utils
