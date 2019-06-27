@@ -158,26 +158,29 @@ local utils = require 'utils'
 local names = require 'names'
 
 local raw = data.raw
-local name = names.units.basic_toxic_car
 
-local unit = utils.deepcopy(raw.car.car)
+local entity_name = names.entities.basic_toxic_car
+local item_name = names.items.basic_toxic_car
+local recipe_name = names.recipes.basic_toxic_car
+
+local entity = utils.deepcopy(raw.car.car)
 local turret = fireutil.flamethrower_prepared_animation({attacking = true})
 
-local animation = utils.combine_base_and_turret(unit.animation, turret, 0.5, {0.0, 0.0})
+local animation = utils.combine_base_and_turret(entity.animation, turret, 0.5, {0.0, 0.0})
 
-unit.type = 'unit'
-unit.name = name
-unit.localised_name = {name}
-unit.subgroup = names.subgroups.basic_units
-unit.order = 'i-c'
-unit.max_pursue_distance = 64
-unit.min_persue_time = 60 * 15
-unit.distraction_cooldown = 30
-unit.ai_settings = {
+entity.type = 'unit'
+entity.name = entity_name
+entity.localised_name = {entity_name}
+entity.subgroup = names.subgroups.basic_units
+entity.order = 'i-c'
+entity.max_pursue_distance = 64
+entity.min_persue_time = 60 * 15
+entity.distraction_cooldown = 30
+entity.ai_settings = {
     do_separation = true
 }
-unit.run_animation = animation
-unit.attack_parameters = {
+entity.run_animation = animation
+entity.attack_parameters = {
     type = 'projectile',
     range = 25,
     cooldown = 60,
@@ -228,31 +231,31 @@ unit.attack_parameters = {
     animation = animation
 }
 
-unit.movement_speed = 0.35
-unit.distance_per_frame = 0.15
-unit.pollution_to_join_attack = 1000
-unit.vision_distance = 40
-unit.radar_range = 2
-unit.has_belt_immunity = true
+entity.movement_speed = 0.35
+entity.distance_per_frame = 0.15
+entity.pollution_to_join_attack = 1000
+entity.vision_distance = 40
+entity.radar_range = 2
+entity.has_belt_immunity = true
 
 local item = {
     type = 'item',
-    name = name,
-    localised_name = {name},
-    icon = unit.icon,
-    icon_size = unit.icon_size,
+    name = item_name,
+    localised_name = {item_name},
+    icon = entity.icon,
+    icon_size = entity.icon_size,
     flags = {},
     subgroup = names.subgroups.basic_units,
-    order = 'c-' .. name,
+    order = 'c-' .. item_name,
     stack_size = 10,
-    place_result = name
+    place_result = entity_name
 }
 
 local recipe = {
     type = 'recipe',
-    name = name,
-    localised_name = {name},
-    category = names.deployers.basic_unit_deployer,
+    name = recipe_name,
+    localised_name = {recipe_name},
+    category = names.crafting_categories.basic_units,
     enabled = true,
     ingredients = {
         {'engine-unit', 8},
@@ -260,7 +263,7 @@ local recipe = {
         {'solid-fuel', 15}
     },
     energy_required = 20,
-    result = name
+    result = item_name
 }
 
-data:extend {unit, item, recipe}
+data:extend {entity, item, recipe}

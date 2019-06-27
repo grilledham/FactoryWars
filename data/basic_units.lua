@@ -2,28 +2,27 @@ local utils = require 'utils'
 local names = require 'names'
 
 local raw = data.raw
-local name = names.deployers.basic_unit_deployer
 
-local machine = utils.deepcopy(raw['assembling-machine']['assembling-machine-1'])
-
-machine.name = name
-machine.localised_name = {name}
+local entity_name = names.entities.basic_unit_deployer
+local item_name = names.items.basic_unit_deployer
+local recipe_name = names.recipes.basic_unit_deployer
 
 local scale = 2
+local entity = utils.deepcopy(raw['assembling-machine']['assembling-machine-1'])
 
-utils.multiply_animation_value(machine.animation, 'scale', scale)
-utils.scale_area(machine.collision_box, scale)
-utils.scale_area(machine.selection_box, scale)
-machine.crafting_categories = {name}
-machine.crafting_speed = 1
-machine.ingredient_count = nil
-machine.allowed_effects = {'consumption', 'speed', 'pollution'}
-machine.module_specification = {
-    module_slots = 1
-}
-machine.minable = {result = name, mining_time = 1}
-machine.flags = {'placeable-neutral', 'player-creation', 'no-automated-item-removal'}
-machine.fluid_boxes = {
+entity.name = entity_name
+entity.localised_name = {entity_name}
+utils.multiply_animation_value(entity.animation, 'scale', scale)
+utils.scale_area(entity.collision_box, scale)
+utils.scale_area(entity.selection_box, scale)
+entity.crafting_categories = {names.crafting_categories.basic_units}
+entity.crafting_speed = 1
+entity.ingredient_count = nil
+entity.allowed_effects = nil
+entity.module_specification = nil
+entity.minable = {result = item_name, mining_time = 1}
+entity.flags = {'placeable-neutral', 'player-creation', 'no-automated-item-removal'}
+entity.fluid_boxes = {
     {
         production_type = 'output',
         pipe_picture = nil,
@@ -34,33 +33,33 @@ machine.fluid_boxes = {
     },
     off_when_no_fluid_recipe = false
 }
-machine.scale_entity_info_icon = true
-machine.energy_usage = '400kW'
---[[ machine.energy_source = {
+entity.scale_entity_info_icon = true
+entity.energy_usage = '400kW'
+--[[ entity.energy_source = {
     type = 'electric',
     usage_priority = 'secondary-input',
     emissions_per_minute = 4
 } ]]
-machine.is_deployer = true
+entity.is_deployer = true
 
 local item = {
     type = 'item',
-    name = name,
-    icon = machine.icon,
-    icon_size = machine.icon_size,
+    name = item_name,
+    icon = entity.icon,
+    icon_size = entity.icon_size,
     flags = {},
     subgroup = names.subgroups.basic_units,
-    order = 'aa' .. name,
-    place_result = name,
+    order = 'aa' .. item_name,
+    place_result = entity_name,
     stack_size = 50
 }
 
+local technology_name = names.technologies.basic_units
+
 local category = {
     type = 'recipe-category',
-    name = name
+    name = technology_name
 }
-
-local technology_name = names.technologies.basic_units
 
 local subgroup = {
     type = 'item-subgroup',
@@ -71,8 +70,8 @@ local subgroup = {
 
 local recipe = {
     type = 'recipe',
-    name = name,
-    localised_name = {name},
+    name = recipe_name,
+    localised_name = {recipe_name},
     enabled = false,
     ingredients = {
         {'iron-plate', 50},
@@ -80,7 +79,7 @@ local recipe = {
         {'iron-stick', 50}
     },
     energy_required = 100,
-    result = name
+    result = item_name
 }
 
 local technology = {
@@ -88,23 +87,22 @@ local technology = {
     name = technology_name,
     localised_name = {technology_name},
     localised_description = '',
-    icon_size = machine.icon_size,
-    icon = machine.icon,
+    icon_size = entity.icon_size,
+    icon = entity.icon,
     effects = {
         {
             type = 'unlock-recipe',
-            recipe = name
+            recipe = item_name
         },
         {
             type = 'unlock-recipe',
-            recipe = names.units.basic_gun_car
+            recipe = names.items.basic_gun_car
         }
     },
     unit = {
         count = 25,
         ingredients = {
             {'automation-science-pack', 1}
-            --{"logistic-science-pack", 1},
         },
         time = 30
     },
@@ -113,7 +111,7 @@ local technology = {
 }
 
 data:extend {
-    machine,
+    entity,
     item,
     category,
     subgroup,

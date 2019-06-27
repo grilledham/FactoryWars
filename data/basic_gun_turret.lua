@@ -2,14 +2,18 @@ local utils = require 'utils'
 local names = require 'names'
 
 local raw = data.raw
-local name = 'inf-gun-turret'
 
-local turret = utils.deepcopy(raw['ammo-turret']['gun-turret'])
-turret.type = 'turret'
-turret.name = name
-turret.inventory_size = nil
-turret.automated_ammo_count = nil
-local ap = turret.attack_parameters
+local entity_name = names.entities.basic_gun_turret
+local item_name = names.items.basic_gun_turret
+local recipe_name = names.recipes.basic_gun_turret
+
+local entity = utils.deepcopy(raw['ammo-turret']['gun-turret'])
+entity.type = 'turret'
+entity.name = entity_name
+entity.localised_name = {entity_name}
+entity.inventory_size = nil
+entity.automated_ammo_count = nil
+local ap = entity.attack_parameters
 ap.ammo_category = nil
 ap.ammo_type = {
     category = 'bullet',
@@ -34,37 +38,32 @@ ap.ammo_type = {
         }
     }
 }
-turret.order = 'i-c'
---[[ turret.energy_source = {
-    type = 'void'
-} ]]
+entity.order = 'i-c'
 
 local item = {
     type = 'item',
-    name = name,
-    localised_name = {name},
-    icon = turret.icon,
-    icon_size = turret.icon_size,
+    name = item_name,
+    localised_name = {item_name},
+    icon = entity.icon,
+    icon_size = entity.icon_size,
     flags = {},
     subgroup = names.subgroups.basic_units,
-    order = 'c-' .. name,
+    order = 'c-' .. item_name,
     stack_size = 10,
-    place_result = name
+    place_result = entity_name
 }
 
 local recipe = {
     type = 'recipe',
-    name = name,
-    localised_name = {name},
-    category = names.deployers.basic_unit_deployer,
+    name = recipe_name,
+    localised_name = {recipe_name},
     enabled = false,
     ingredients = {
-        {'engine-unit', 8},
-        {'iron-gear-wheel', 5},
-        {'solid-fuel', 15}
+        {'metal-plate', 20},
+        {'iron-gear-wheel', 10}
     },
-    energy_required = 20,
-    result = name
+    energy_required = 8,
+    result = item_name
 }
 
-data:extend({turret, item, recipe})
+data:extend({entity, item, recipe})
