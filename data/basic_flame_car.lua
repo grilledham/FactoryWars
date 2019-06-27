@@ -159,9 +159,9 @@ local names = require 'names'
 
 local raw = data.raw
 
-local entity_name = names.entities.basic_toxic_car
-local item_name = names.items.basic_toxic_car
-local recipe_name = names.recipes.basic_toxic_car
+local entity_name = names.entities.basic_flame_car
+local item_name = names.items.basic_flame_car
+local recipe_name = names.recipes.basic_flame_car
 
 local entity = utils.deepcopy(raw.car.car)
 local turret = fireutil.flamethrower_prepared_animation({attacking = true})
@@ -181,50 +181,45 @@ entity.ai_settings = {
 }
 entity.run_animation = animation
 entity.attack_parameters = {
-    type = 'projectile',
-    range = 25,
-    cooldown = 60,
-    projectile_creation_distance = 0.9,
-    projectile_center = {0.0, 0.3},
-    sound = {
-        {
-            filename = '__base__/sound/fight/rocket-launcher.ogg',
-            volume = 1.0
+    type = 'stream',
+    ammo_category = 'flamethrower',
+    cooldown = 1,
+    projectile_creation_distance = 0.6,
+    gun_barrel_length = 1.4,
+    gun_center_shift = {-0.17, -1.15},
+    range = 9,
+    min_range = 3,
+    cyclic_sound = {
+        begin_sound = {
+            {
+                filename = '__base__/sound/fight/flamethrower-start.ogg',
+                volume = 1
+            }
+        },
+        middle_sound = {
+            {
+                filename = '__base__/sound/fight/flamethrower-mid.ogg',
+                volume = 1
+            }
+        },
+        end_sound = {
+            {
+                filename = '__base__/sound/fight/flamethrower-end.ogg',
+                volume = 1
+            }
         }
     },
     ammo_type = {
-        category = 'rocket',
-        target_type = 'entity',
+        category = 'flamethrower',
+        target_type = 'position',
+        clamp_position = true,
         action = {
             type = 'direct',
             action_delivery = {
-                {
-                    type = 'projectile',
-                    projectile = 'rocket',
-                    starting_speed = 1 / 3,
-                    range_deviation = 0.1,
-                    max_range = 125 + 3
-                },
-                {
-                    type = 'instant',
-                    source_effects = {
-                        type = 'create-explosion',
-                        entity_name = 'explosion-gunshot'
-                    }
-                }
-            }
-        },
-        final_action = {
-            type = 'direct',
-            action_delivery = {
-                type = 'instant',
-                target_effects = {
-                    {
-                        type = 'create-entity',
-                        entity_name = 'small-scorchmark',
-                        check_buildability = true
-                    }
-                }
+                type = 'stream',
+                stream = 'tank-flamethrower-fire-stream',
+                max_length = 9,
+                duration = 1
             }
         }
     },

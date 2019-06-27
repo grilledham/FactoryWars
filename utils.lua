@@ -81,6 +81,17 @@ function utils.scale_position(position, scale)
     return position
 end
 
+function utils.shift_area(area, shift)
+    local a, b = area[1], area[2]
+    local x, y = shift[1], shift[2]
+    a[1] = a[1] + x
+    a[2] = a[2] + y
+    b[1] = b[1] + x
+    b[2] = b[2] + y
+
+    return area
+end
+
 utils.unit_flags = {'player-creation', 'placeable-off-grid'}
 utils.ground_unit_collision_mask = {'not-colliding-with-itself', 'player-layer', 'train-layer'}
 
