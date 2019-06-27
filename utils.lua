@@ -140,11 +140,14 @@ function utils.combine_base_and_turret(base, turret, turret_scale, turret_shift)
     do_layers(base)
 
     local base_layers = base.layers
-    for _, l in pairs(turret.layers) do
-        l.shift = l.shift or {0, 0}
-        l.shift[1] = l.shift[1] + turret_shift[1]
-        l.shift[2] = l.shift[2] + turret_shift[2]
-        table.insert(base_layers, l)
+    local turret_layers = turret.layers or turret
+    if turret_layers then
+        for _, l in pairs(turret_layers) do
+            l.shift = l.shift or {0, 0}
+            l.shift[1] = l.shift[1] + turret_shift[1]
+            l.shift[2] = l.shift[2] + turret_shift[2]
+            table.insert(base_layers, l)
+        end
     end
 
     return base

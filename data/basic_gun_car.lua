@@ -4,6 +4,7 @@ local names = require 'names'
 local raw = data.raw
 local name = names.units.basic_gun_car
 
+local ammo = raw['ammo']['firearm-magazine']
 local unit = utils.deepcopy(raw.car.car)
 local animation = utils.combine_base_and_turret(unit.animation, unit.turret_animation)
 
@@ -57,12 +58,16 @@ unit.vision_distance = 40
 unit.radar_range = 2
 unit.has_belt_immunity = true
 
+local icons = {
+    {icon = unit.icon, icon_size = 32},
+    {icon = ammo.icon, icon_size = 32, scale = 0.5, shift = {-8, 8}}
+}
+
 local item = {
     type = 'item',
     name = name,
     localised_name = {name},
-    icon = unit.icon,
-    icon_size = unit.icon_size,
+    icons = icons,
     flags = {},
     subgroup = names.subgroups.basic_units,
     order = 'c-' .. name,
