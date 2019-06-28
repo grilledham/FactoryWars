@@ -1,3 +1,5 @@
+require 'data.recipe_changes'
+
 require 'data.metal_ore'
 require 'data.metal_miner'
 

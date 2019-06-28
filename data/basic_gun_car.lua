@@ -11,6 +11,11 @@ local ammo = raw['ammo']['firearm-magazine']
 local entity = utils.deepcopy(raw.car.car)
 local animation = utils.combine_base_and_turret(entity.animation, entity.turret_animation)
 
+local icons = {
+    {icon = entity.icon, icon_size = 32},
+    {icon = ammo.icon, icon_size = 32, scale = 0.5, shift = {-8, 8}}
+}
+
 entity.type = 'unit'
 entity.name = entity_name
 entity.localised_name = {entity_name}
@@ -60,11 +65,8 @@ entity.pollution_to_join_attack = 1000
 entity.vision_distance = 40
 entity.radar_range = 2
 entity.has_belt_immunity = true
-
-local icons = {
-    {icon = entity.icon, icon_size = 32},
-    {icon = ammo.icon, icon_size = 32, scale = 0.5, shift = {-8, 8}}
-}
+entity.icons = icons
+entity.icon = nil
 
 local item = {
     type = 'item',
@@ -73,7 +75,7 @@ local item = {
     icons = icons,
     flags = {},
     subgroup = names.subgroups.basic_units,
-    order = 'c-' .. item_name,
+    order = 'c-a',
     stack_size = 10,
     place_result = entity_name
 }

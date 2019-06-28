@@ -7,9 +7,15 @@ local entity_name = names.entities.basic_rocket_car
 local item_name = names.items.basic_rocket_car
 local recipe_name = names.recipes.basic_rocket_car
 
+local ammo = raw['ammo']['rocket']
 local entity = utils.deepcopy(raw.car.car)
 local turret = utils.deepcopy(raw.car.tank.turret_animation)
 local animation = utils.combine_base_and_turret(entity.animation, turret, 0.5, {0.18, 0.415})
+
+local icons = {
+    {icon = entity.icon, icon_size = 32},
+    {icon = ammo.icon, icon_size = 32, scale = 0.5, shift = {-8, 8}}
+}
 
 entity.type = 'unit'
 entity.name = entity_name
@@ -80,16 +86,17 @@ entity.pollution_to_join_attack = 1000
 entity.vision_distance = 40
 entity.radar_range = 2
 entity.has_belt_immunity = true
+entity.icons = icons
+entity.icon = nil
 
 local item = {
     type = 'item',
     name = item_name,
     localised_name = {item_name},
-    icon = entity.icon,
-    icon_size = entity.icon_size,
+    icons = icons,
     flags = {},
     subgroup = names.subgroups.basic_units,
-    order = 'c-' .. item_name,
+    order = 'c-c',
     stack_size = 10,
     place_result = entity_name
 }
