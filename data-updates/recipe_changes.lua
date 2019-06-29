@@ -19,7 +19,9 @@ local changes = {
         result = 'electronic-circuit',
         normal = nil_value,
         expensive = nil_value
-    }
+    },
+    ['steam-engine'] = {enabled = false},
+    ['electric-mining-drill'] = {enabled = false}
 }
 
 local recipe = data.raw.recipe

@@ -1,5 +1,4 @@
-require 'data.recipe_changes'
-
+require 'data.void_power'
 require 'data.metal_ore'
 require 'data.metal_miner'
 

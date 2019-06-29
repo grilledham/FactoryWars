@@ -1,3 +1,4 @@
+require 'data-updates.recipe_changes'
 require 'data-updates.ammo'
 
 local recipe_blacklist = {
