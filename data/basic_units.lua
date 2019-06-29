@@ -74,7 +74,7 @@ local recipe = {
     localised_name = {recipe_name},
     enabled = false,
     ingredients = {
-        {'iron-plate', 40},
+        {'metal-plate', 40},
         {'iron-gear-wheel', 20},
         {'iron-stick', 40}
     },

@@ -19,7 +19,7 @@ local recipe1 = {
     type = 'recipe',
     name = items_names.basic_science_pack,
     localised_name = {items_names.basic_science_pack},
-    energy_required = 5,
+    energy_required = 2,
     ingredients = {
         {'copper-cable', 2},
         {'iron-gear-wheel', 1}
@@ -69,7 +69,7 @@ local recipe2 = {
     type = 'recipe',
     name = items_names.advanced_science_pack,
     localised_name = {items_names.advanced_science_pack},
-    energy_required = 5,
+    energy_required = 4,
     ingredients = {
         {'copper-cable', 2},
         {'iron-gear-wheel', 1}
@@ -117,7 +117,7 @@ local recipe3 = {
     type = 'recipe',
     name = items_names.superior_science_pack,
     localised_name = {items_names.superior_science_pack},
-    energy_required = 5,
+    energy_required = 8,
     ingredients = {
         {'copper-cable', 2},
         {'iron-gear-wheel', 1}
@@ -165,7 +165,7 @@ local recipe4 = {
     type = 'recipe',
     name = items_names.experimental_science_pack,
     localised_name = {items_names.experimental_science_pack},
-    energy_required = 5,
+    energy_required = 16,
     ingredients = {
         {'copper-cable', 2},
         {'iron-gear-wheel', 1}

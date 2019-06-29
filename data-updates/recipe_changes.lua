@@ -57,6 +57,12 @@ local changes = {
             {'iron-gear-wheel', 1}
         }
     },
+    ['underground-belt'] = {
+        ingredients = {
+            {'metal-plate', 10},
+            {'transport-belt', 5}
+        }
+    },
     ['splitter'] = {
         ingredients = {
             {'metal-plate', 5},
@@ -81,15 +87,18 @@ local changes = {
         ingredients = {{'metal-plate', 4}}
     },
     ['assembling-machine-1'] = {
-        {'metal-plate', 10},
-        {'iron-gear-wheel', 5}
+        ingredients = {
+            {'metal-plate', 10},
+            {'iron-gear-wheel', 5}
+        }
     },
     ['engine-unit'] = {
         ingredients = {
             {'iron-stick', 4},
             {'iron-gear-wheel', 1}
         },
-        category = 'crafting'
+        category = 'crafting',
+        energy_required = 1
     },
     ['flamethrower-ammo'] = {
         ingredients = {

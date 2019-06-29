@@ -87,11 +87,11 @@ local recipe = {
     category = names.crafting_categories.basic_units,
     enabled = false,
     ingredients = {
-        {'iron-plate', 36},
+        {'metal-plate', 36},
         {'electronic-circuit', 16},
         {'engine-unit', 12}
     },
-    energy_required = 3,
+    energy_required = 2,
     result = item_name,
     carfting = names.crafting_categories.basic_units
 }
