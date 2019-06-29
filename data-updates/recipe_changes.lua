@@ -1,7 +1,18 @@
-local nil_value = {}
+local utils = require 'utils'
+local nil_value = utils.nil_value
 
 local changes = {
     ['copper-plate'] = {enabled = false},
+    ['iron-plate'] = {enabled = false},
+    ['pipe-to-ground'] = {enabled = false},
+    ['steam-engine'] = {enabled = false},
+    ['electric-mining-drill'] = {enabled = false},
+    ['burner-mining-drill'] = {enabled = false},
+    ['boiler'] = {enabled = false},
+    ['stone-furnace'] = {enabled = false},
+    ['wooden-chest'] = {enabled = false},
+    ['burner-inserter'] = {enabled = false},
+    ['offshore-pump'] = {enabled = false},
     ['iron-gear-wheel'] = {
         ingredients = {{'metal-plate', 2}},
         result = 'iron-gear-wheel',
@@ -20,27 +31,52 @@ local changes = {
         normal = nil_value,
         expensive = nil_value
     },
-    ['steam-engine'] = {enabled = false},
-    ['electric-mining-drill'] = {enabled = false}
+    ['stone-brick'] = {
+        ingredients = {{'metal-plate', 1}},
+        result = 'stone-brick',
+        category = 'crafting'
+    },
+    ['iron-stick'] = {
+        ingredients = {{'metal-plate', 1}}
+    },
+    ['small-electric-pole'] = {
+        ingredients = {
+            {'iron-stick', 1},
+            {'copper-cable', 1}
+        }
+    },
+    ['pipe'] = {
+        ingredients = {{'metal-plate', 1}}
+    },
+    ['automation-science-pack'] = {
+        ingredients = {
+            {'iron-gear-wheel', 1},
+            {'copper-cable', 2}
+        }
+    },
+    ['transport-belt'] = {
+        ingredients = {
+            {'metal-plate', 1},
+            {'iron-gear-wheel', 1}
+        }
+    },
+    ['inserter'] = {
+        ingredients = {
+            {'metal-plate', 1},
+            {'iron-gear-wheel', 1}
+        }
+    },
+    ['lab'] = {
+        ingredients = {
+            {'metal-plate', 5},
+            {'iron-gear-wheel', 5},
+            {'copper-cable', 10}
+        }
+    },
+    ['iron-chest'] = {
+        ingredients = {{'metal-plate', 4}}
+    }
 }
 
 local recipe = data.raw.recipe
-
-for name, change_data in pairs(changes) do
-    local old = recipe[name]
-    if old then
-        if change_data == nil_value then
-            recipe[name] = nil
-        else
-            for key, data in pairs(change_data) do
-                if data == nil_value then
-                    old[key] = nil
-                else
-                    old[key] = data
-                end
-            end
-        end
-    else
-        data:extend({change_data})
-    end
-end
+utils.apply_data_changes(recipe, changes)

@@ -164,4 +164,28 @@ function utils.combine_base_and_turret(base, turret, turret_scale, turret_shift)
     return base
 end
 
+local nil_value = {}
+utils.nil_value = nil_value
+
+function utils.apply_data_changes(dataset, changes)
+    for name, change_data in pairs(changes) do
+        local old = dataset[name]
+        if old then
+            if change_data == nil_value then
+                dataset[name] = nil
+            else
+                for key, data in pairs(change_data) do
+                    if data == nil_value then
+                        old[key] = nil
+                    else
+                        old[key] = data
+                    end
+                end
+            end
+        else
+            data:extend({change_data})
+        end
+    end
+end
+
 return utils

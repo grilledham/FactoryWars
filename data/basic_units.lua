@@ -102,11 +102,11 @@ local technology = {
     unit = {
         count = 25,
         ingredients = {
-            {'automation-science-pack', 1}
+            {names.items.basic_science_pack, 1}
         },
         time = 30
     },
-    prerequisites = {'automation'},
+    prerequisites = {names.technologies.basic_science_pack},
     order = 'y-a'
 }
 

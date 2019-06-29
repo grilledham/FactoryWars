@@ -1,6 +1,7 @@
 require 'data.void_power'
 require 'data.metal_ore'
 require 'data.metal_miner'
+require 'data.science_packs'
 
 require 'data.basic_units'
 require 'data.basic_gun_car'

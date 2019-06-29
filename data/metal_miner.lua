@@ -26,7 +26,7 @@ local t1_recipe = {
     type = 'recipe',
     name = t1_name,
     localised_name = {t1_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'iron-gear-wheel', 5},
         {'metal-plate', 10}
@@ -55,7 +55,7 @@ local t2_recipe = {
     type = 'recipe',
     name = t2_name,
     localised_name = {t2_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'electronic-circuit', 30},
         {'iron-gear-wheel', 50},
@@ -85,7 +85,7 @@ local t3_recipe = {
     type = 'recipe',
     name = t3_name,
     localised_name = {t3_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'electronic-circuit', 300},
         {'iron-gear-wheel', 500},
@@ -95,4 +95,90 @@ local t3_recipe = {
     result = t3_name
 }
 
-data:extend {t1, t1_item, t1_recipe, t2, t2_item, t2_recipe, t3, t3_item, t3_recipe}
+local item_names = names.items
+local technology_names = names.technologies
+
+local t1_tech = {
+    type = 'technology',
+    name = technology_names.basic_metal_mining,
+    localised_name = {technology_names.basic_metal_mining},
+    icon_size = 128,
+    icon = '__base__/graphics/technology/demo/basic-mining.png',
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t1_name
+        }
+    },
+    unit = {
+        count = 10,
+        ingredients = {{item_names.basic_science_pack, 1}},
+        time = 1
+    },
+    order = 'a-a',
+    prerequisites = {technology_names.basic_science_pack}
+}
+
+local t2_tech = {
+    type = 'technology',
+    name = technology_names.advanced_metal_mining,
+    localised_name = {technology_names.advanced_metal_mining},
+    icon_size = 128,
+    icon = '__base__/graphics/technology/demo/basic-mining.png',
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t2_name
+        }
+    },
+    unit = {
+        count = 100,
+        ingredients = {
+            {item_names.basic_science_pack, 1},
+            {item_names.advanced_science_pack, 1}
+        },
+        time = 1
+    },
+    order = 'a-b',
+    prerequisites = {technology_names.basic_metal_mining, technology_names.advanced_science_pack}
+}
+
+local t3_tech = {
+    type = 'technology',
+    name = technology_names.superior_metal_mining,
+    localised_name = {technology_names.superior_metal_mining},
+    icon_size = 128,
+    icon = '__base__/graphics/technology/demo/basic-mining.png',
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t3_name
+        }
+    },
+    unit = {
+        count = 1000,
+        ingredients = {
+            {item_names.basic_science_pack, 1},
+            {item_names.advanced_science_pack, 1},
+            {item_names.superior_science_pack, 1}
+        },
+        time = 1
+    },
+    order = 'a-c',
+    prerequisites = {technology_names.advanced_metal_mining, technology_names.superior_science_pack}
+}
+
+data:extend {
+    t1,
+    t1_item,
+    t1_recipe,
+    t2,
+    t2_item,
+    t2_recipe,
+    t3,
+    t3_item,
+    t3_recipe,
+    t1_tech,
+    t2_tech,
+    t3_tech
+}
