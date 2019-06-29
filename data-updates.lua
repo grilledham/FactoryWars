@@ -1,7 +1,7 @@
 require 'data-updates.recipe_changes'
 require 'data-updates.entity_changes'
 require 'data-updates.technology_changes'
-require 'data-updates.ammo'
+--require 'data-updates.ammo'
 
 local recipe_blacklist = {
     accumulator = true,

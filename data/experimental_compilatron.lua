@@ -114,7 +114,7 @@ local recipe = {
     name = recipe_name,
     localised_name = {recipe_name},
     category = names.crafting_categories.experimental_units,
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'engine-unit', 8},
         {'iron-gear-wheel', 5}

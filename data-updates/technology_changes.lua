@@ -1,3 +1,6 @@
+local utils = require 'utils'
+local names = require 'names'
+
 local technolgy_blacklist = {
     ['active-defense'] = true,
     ['advanced-electronics'] = true,
@@ -12,7 +15,6 @@ local technolgy_blacklist = {
     ['atomic-bomb'] = true,
     ['auto-character-logistic-trash-slots'] = true,
     ['automated-rail-transportation'] = true,
-    automation = true,
     ['automation-2'] = true,
     ['automation-3'] = true,
     automobilism = true,
@@ -68,7 +70,6 @@ local technolgy_blacklist = {
     ['electric-engine'] = true,
     ['electric-inserter'] = true,
     ['electric-mining'] = true,
-    electronics = true,
     ['energy-shield-equipment'] = true,
     ['energy-shield-mk2-equipment'] = true,
     ['energy-weapons-damage-1'] = true,
@@ -78,13 +79,11 @@ local technolgy_blacklist = {
     ['energy-weapons-damage-5'] = true,
     ['energy-weapons-damage-6'] = true,
     ['energy-weapons-damage-7'] = true,
-    engine = true,
     ['exoskeleton-equipment'] = true,
     ['explosive-rocketry'] = true,
     explosives = true,
     ['fast-inserter'] = true,
     flamethrower = true,
-    flammables = true,
     ['fluid-handling'] = true,
     ['fluid-wagon'] = true,
     ['follower-robot-count-1'] = true,
@@ -120,7 +119,6 @@ local technolgy_blacklist = {
     ['logistic-robotics'] = true,
     ['logistic-science-pack'] = true,
     ['logistic-system'] = true,
-    logistics = true,
     ['logistics-2'] = true,
     ['logistics-3'] = true,
     ['low-density-structure'] = true,
@@ -177,7 +175,6 @@ local technolgy_blacklist = {
     ['research-speed-5'] = true,
     ['research-speed-6'] = true,
     robotics = true,
-    ['rocket-control-unit'] = true,
     ['rocket-fuel'] = true,
     ['rocket-silo'] = true,
     rocketry = true,
@@ -222,8 +219,137 @@ local technolgy_blacklist = {
     ['worker-robots-storage-3'] = true
 }
 
-local technology = data.raw.technology
+local raw = data.raw
+local technology = raw.technology
+local item_names = names.items
+local tech_names = names.technologies
 
-for k,v in pairs(technolgy_blacklist) do
+for k, v in pairs(technolgy_blacklist) do
     technology[k].enabled = false
 end
+
+utils.apply_data_changes(
+    technology,
+    {
+        ['automation'] = {
+            unit = {
+                count = 10,
+                ingredients = {
+                    {item_names.basic_science_pack, 1}
+                },
+                time = 10
+            },
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'assembling-machine-1'
+                }
+            },
+            order = 'a-c',
+            prerequisites = {tech_names.basic_science_pack}
+        },
+        ['logistics'] = {
+            unit = {
+                count = 20,
+                ingredients = {
+                    {item_names.basic_science_pack, 1}
+                },
+                time = 10
+            },
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'transport-belt'
+                },
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'underground-belt'
+                },
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'splitter'
+                },
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'inserter'
+                }
+            },
+            order = 'a-c',
+            prerequisites = {tech_names.basic_science_pack}
+        },
+        ['electronics'] = {
+            unit = {
+                count = 20,
+                ingredients = {
+                    {item_names.basic_science_pack, 1}
+                },
+                time = 10
+            },
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'electronic-circuit'
+                }
+            },
+            order = 'a-c',
+            prerequisites = {'automation'}
+        },
+        ['engine'] = {
+            unit = {
+                count = 20,
+                ingredients = {
+                    {item_names.basic_science_pack, 1}
+                },
+                time = 10
+            },
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'engine-unit'
+                }
+            },
+            order = 'a-c',
+            prerequisites = {'logistics'}
+        },
+        ['flammables'] = {
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = names.items.basic_flame_car
+                },
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'flamethrower-ammo'
+                }
+            },
+            unit = {
+                count = 50,
+                ingredients = {
+                    {names.items.basic_science_pack, 1}
+                },
+                time = 30
+            },
+            prerequisites = {names.technologies.basic_units}
+        },
+        ['rocket-control-unit'] = {
+            unit = {
+                count = 50,
+                ingredients = {
+                    {names.items.basic_science_pack, 1}
+                },
+                time = 30
+            },
+            effects = {
+                {
+                    type = 'unlock-recipe',
+                    recipe = names.items.basic_rocket_car
+                },
+                {
+                    type = 'unlock-recipe',
+                    recipe = 'rocket-control-unit'
+                }
+            },
+            prerequisites = {names.technologies.basic_units}
+        }
+    }
+)

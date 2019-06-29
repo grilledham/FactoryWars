@@ -63,13 +63,41 @@ local t1_recipe = {
     type = 'recipe',
     name = t1_name,
     localised_name = {t1_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'metal-plate', 10},
         {'iron-gear-wheel', 5}
     },
     energy_required = 3,
     result = t1_name
+}
+
+local t1_tech = {
+    type = 'technology',
+    name = t1_name,
+    localised_name = {t1_name},
+    localised_description = '',
+    icon_size = t1.icon_size,
+    icon = t1.icon,
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t1_name
+        },
+        {
+            type = 'unlock-recipe',
+            recipe = 'small-electric-pole'
+        }
+    },
+    unit = {
+        count = 10,
+        ingredients = {
+            {names.items.basic_science_pack, 1}
+        },
+        time = 10
+    },
+    prerequisites = {names.technologies.basic_science_pack},
+    order = 'y-a'
 }
 
 local t2 = utils.deepcopy(raw['generator']['steam-turbine'])
@@ -104,13 +132,46 @@ local t2_recipe = {
     type = 'recipe',
     name = t2_name,
     localised_name = {t2_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'metal-plate', 100},
         {'iron-gear-wheel', 50}
     },
     energy_required = 3,
     result = t2_name
+}
+
+local t2_tech = {
+    type = 'technology',
+    name = t2_name,
+    localised_name = {t2_name},
+    localised_description = '',
+    icon_size = t2.icon_size,
+    icon = t2.icon,
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t2_name
+        },
+        {
+            type = 'unlock-recipe',
+            recipe = 'medium-electric-pole'
+        },
+        {
+            type = 'unlock-recipe',
+            recipe = 'big-electric-pole'
+        }
+    },
+    unit = {
+        count = 250,
+        ingredients = {
+            {names.items.basic_science_pack, 1},
+            {names.items.advanced_science_pack, 1}
+        },
+        time = 10
+    },
+    prerequisites = {names.technologies.advanced_science_pack, names.technologies.basic_void_generator},
+    order = 'y-a'
 }
 
 local t3 = utils.deepcopy(raw['generator']['steam-turbine'])
@@ -200,7 +261,7 @@ local t3_recipe = {
     type = 'recipe',
     name = t3_name,
     localised_name = {t3_name},
-    enabled = true,
+    enabled = false,
     ingredients = {
         {'metal-plate', 1000},
         {'iron-gear-wheel', 500}
@@ -209,4 +270,49 @@ local t3_recipe = {
     result = t3_name
 }
 
-data:extend {category, void_fuel, t1, t1_item, t1_recipe, t2, t2_item, t2_recipe, t3, t3_item, t3_recipe}
+local t3_tech = {
+    type = 'technology',
+    name = t3_name,
+    localised_name = {t3_name},
+    localised_description = '',
+    icon_size = 128,
+    icon = '__base__/graphics/technology/nuclear-power.png',
+    effects = {
+        {
+            type = 'unlock-recipe',
+            recipe = t3_name
+        },
+        {
+            type = 'unlock-recipe',
+            recipe = 'substation'
+        }
+    },
+    unit = {
+        count = 1250,
+        ingredients = {
+            {names.items.basic_science_pack, 1},
+            {names.items.advanced_science_pack, 1},
+            {names.items.superior_science_pack, 1}
+        },
+        time = 10
+    },
+    prerequisites = {names.technologies.superior_science_pack, names.technologies.advanced_void_generator},
+    order = 'y-a'
+}
+
+data:extend {
+    category,
+    void_fuel,
+    t1,
+    t1_item,
+    t1_recipe,
+    t2,
+    t2_item,
+    t2_recipe,
+    t3,
+    t3_item,
+    t3_recipe,
+    t1_tech,
+    t2_tech,
+    t3_tech
+}

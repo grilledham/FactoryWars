@@ -74,11 +74,11 @@ local recipe = {
     localised_name = {recipe_name},
     enabled = false,
     ingredients = {
-        {'iron-plate', 50},
-        {'iron-gear-wheel', 80},
-        {'iron-stick', 50}
+        {'iron-plate', 40},
+        {'iron-gear-wheel', 20},
+        {'iron-stick', 40}
     },
-    energy_required = 100,
+    energy_required = 10,
     result = item_name
 }
 
@@ -87,8 +87,8 @@ local technology = {
     name = technology_name,
     localised_name = {technology_name},
     localised_description = '',
-    icon_size = entity.icon_size,
-    icon = entity.icon,
+    icon_size = 128,
+    icon = '__base__/graphics/technology/automobilism.png',
     effects = {
         {
             type = 'unlock-recipe',
@@ -100,13 +100,13 @@ local technology = {
         }
     },
     unit = {
-        count = 25,
+        count = 50,
         ingredients = {
             {names.items.basic_science_pack, 1}
         },
         time = 30
     },
-    prerequisites = {names.technologies.basic_science_pack},
+    prerequisites = {'engine', 'electronics'},
     order = 'y-a'
 }
 

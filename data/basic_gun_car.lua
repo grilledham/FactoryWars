@@ -31,7 +31,7 @@ entity.run_animation = animation
 entity.attack_parameters = {
     type = 'projectile',
     range = 18,
-    cooldown = 10,
+    cooldown = 60 / 15,
     projectile_creation_distance = 0.65,
     ammo_type = {
         category = 'bullet',
@@ -85,13 +85,15 @@ local recipe = {
     name = recipe_name,
     localised_name = {recipe_name},
     category = names.crafting_categories.basic_units,
-    enabled = true,
+    enabled = false,
     ingredients = {
-        {'engine-unit', 8},
-        {'iron-gear-wheel', 5}
+        {'iron-plate', 36},
+        {'electronic-circuit', 16},
+        {'engine-unit', 12}
     },
     energy_required = 3,
-    result = item_name
+    result = item_name,
+    carfting = names.crafting_categories.basic_units
 }
 
 data:extend {entity, item, recipe}

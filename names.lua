@@ -1,6 +1,7 @@
 return {
     technologies = {
         basic_units = 'basic-units',
+        flammables = 'flammables',
         experimental_units = 'experimental-units',
         basic_metal_mining = 'basic-metal-mining',
         advanced_metal_mining = 'advanced-metal-mining',

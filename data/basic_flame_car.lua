@@ -257,13 +257,14 @@ local recipe = {
     name = recipe_name,
     localised_name = {recipe_name},
     category = names.crafting_categories.basic_units,
-    enabled = true,
+    enabled = false,
     ingredients = {
-        {'engine-unit', 8},
-        {'iron-gear-wheel', 5},
-        {'solid-fuel', 15}
+        {'iron-plate', 36},
+        {'electronic-circuit', 16},
+        {'engine-unit', 12},
+        {'flamethrower-ammo', 6}
     },
-    energy_required = 20,
+    energy_required = 2,
     result = item_name
 }
 

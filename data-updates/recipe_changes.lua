@@ -13,6 +13,9 @@ local changes = {
     ['wooden-chest'] = {enabled = false},
     ['burner-inserter'] = {enabled = false},
     ['offshore-pump'] = {enabled = false},
+    ['pistol'] = {enabled = false},
+    ['firearm-magazine'] = {enabled = false},
+    ['light-armor'] = {enabled = false},
     ['iron-gear-wheel'] = {
         ingredients = {{'metal-plate', 2}},
         result = 'iron-gear-wheel',
@@ -48,16 +51,17 @@ local changes = {
     ['pipe'] = {
         ingredients = {{'metal-plate', 1}}
     },
-    ['automation-science-pack'] = {
-        ingredients = {
-            {'iron-gear-wheel', 1},
-            {'copper-cable', 2}
-        }
-    },
     ['transport-belt'] = {
         ingredients = {
             {'metal-plate', 1},
             {'iron-gear-wheel', 1}
+        }
+    },
+    ['splitter'] = {
+        ingredients = {
+            {'metal-plate', 5},
+            {'iron-gear-wheel', 5},
+            {'transport-belt', 2}
         }
     },
     ['inserter'] = {
@@ -75,6 +79,42 @@ local changes = {
     },
     ['iron-chest'] = {
         ingredients = {{'metal-plate', 4}}
+    },
+    ['assembling-machine-1'] = {
+        {'metal-plate', 10},
+        {'iron-gear-wheel', 5}
+    },
+    ['engine-unit'] = {
+        ingredients = {
+            {'iron-stick', 4},
+            {'iron-gear-wheel', 1}
+        },
+        category = 'crafting'
+    },
+    ['flamethrower-ammo'] = {
+        ingredients = {
+            {'metal-plate', 2},
+            {'iron-stick', 4}
+        },
+        category = 'crafting',
+        energy_required = 1
+    },
+    ['rocket-control-unit'] = {
+        ingredients = {
+            {'metal-plate', 2},
+            {'electronic-circuit', 2},
+            {'iron-gear-wheel', 2}
+        },
+        category = 'crafting',
+        energy_required = 1
+    },
+    ['radar'] = {
+        ingredients = {
+            {'metal-plate', 10},
+            {'electronic-circuit', 5},
+            {'iron-gear-wheel', 5}
+        },
+        enabled = false
     }
 }
 
